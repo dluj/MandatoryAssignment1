@@ -19,7 +19,7 @@ public class BlipLocation extends GenericEntity {
 	private BlipDevice device;
 	
 	public BlipLocation(String bluetooth, String name){
-		super();
+		super(bluetooth);
 //		this.location = "itu.zone0.zonedorsyd";
 		this.device = new BlipDevice(bluetooth, name);
 	}
@@ -68,11 +68,6 @@ public class BlipLocation extends GenericEntity {
 	
 	public String getName(){
 		return this.device.getName();
-	}
-	
-	@Override
-	public String getId(){
-		return location;
 	}
 	
 	@Override

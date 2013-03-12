@@ -60,7 +60,6 @@ public class ContextServer extends AbstractMonitor{
 			System.out.println("Server info: \n   " + getContextService().getServerInfo());
 			System.out.println("Tracking for device: " + bluetooth + " with name :" + name);
 			String location = "ITU";
-			getContextService().addEntity(blip_location);
 
 			while(!location.equals("null")){
 				location = BlipLocation.getFromBluetooth(bluetooth);
