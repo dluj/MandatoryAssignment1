@@ -9,11 +9,6 @@ public class BlipDevice extends Person{
 	private String name;
 	
 	
-	public BlipDevice(){
-		super("000ea50050b4","blip tracker");
-//		setLocation();
-	}
-	
 	public BlipDevice(String bluetooth, String name){
 		super(bluetooth, name);
 		this.bluetooth = bluetooth;
@@ -26,6 +21,10 @@ public class BlipDevice extends Person{
 		
 	public String getName(){
 		return name;
+	}
+	
+	public String toString(){
+		return "bluetooth->" + this.getBt();
 	}
 	
 	@Override
