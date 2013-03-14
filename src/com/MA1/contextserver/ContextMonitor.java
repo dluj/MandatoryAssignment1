@@ -37,13 +37,23 @@ public class ContextMonitor extends AbstractMonitor{
 			String[] bn_array = bluetooth_name_position.split("_");
 			this.bluetooth = bn_array[0];
 			this.name = bn_array[1];
+			String in = bn_array[2];
+			while(!in.equals("inside")){
+				bluetooth_name_position = inFromClient.readLine();
+				bn_array = bluetooth_name_position.split("_");
+				this.bluetooth = bn_array[0];
+				this.name = bn_array[1];
+				in = bn_array[2];
+			}
 			blip_device = new BlipDevice(bluetooth, name);
 			System.out.println("ContextMonitor listening for -> " + blip_device.getBt() + " with name-> "+ blip_device.getName());
 			String location = "ITU";//generic location, does not exists
 			blip_location = new BlipLocation(location);
 			while(!location.equals("null")){
 				location = BlipLocation.getFromBluetooth(blip_device.getBt());
+				String old_location = blip_location.getId();
 				if(blip_location.locationChanged(location)){
+					getContextService().addContextItem(old_location, left, blip_device);
 					//device moved to another location
 					blip_location = new BlipLocation(location);
 //					getContextService().addEntity(blip_location);
@@ -62,9 +72,9 @@ public class ContextMonitor extends AbstractMonitor{
 			this.name = bn_array[1];
 			System.out.println("ContextMonitor -> Device "+blip_device.getBt()+" left ITU");
 		}catch(IOException e){
-			System.err.println("ContextMonitor "+e.getMessage()+ "\n" +e.getStackTrace());
+			System.out.println("ContextMonitor -> Device "+blip_device.getBt()+" left ITU");
 		}catch(Exception e){
-			System.err.println("ContextMonitor "+e.getMessage()+ "\n" +e.getStackTrace());
+			System.out.println("ContextMonitor -> Device "+blip_device.getBt()+" disconnected");
 		}
 	}
 
